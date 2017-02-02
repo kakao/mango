@@ -1,0 +1,4 @@
+# Let's hope this works as expected
+
+com.kakao.shaded.jackson.module.scala.DefaultScalaModule
+com.kakao.shaded.jackson.module.paranamer.ParanamerModule

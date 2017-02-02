@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.err</target>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} |%-5level| [%thread] [%marker] [%logger{45}] %msg %ex{full}%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="akka" level="ERROR" />
+	<logger name="org.apache" level="WARN" />
+	<logger name="com.couchbase" level="WARN" />
+	<logger name="net.spy" level="WARN" />
+
+	<root level="DEBUG">
+		<appender-ref ref="STDERR"/>
+	</root>
+</configuration>
