@@ -17,7 +17,7 @@ trait BuildSettings {
   val buildSettings: Seq[Def.Setting[_]] = Defaults.coreDefaultSettings ++ Seq(
     initialize := {
       // require JDK 1.7 for development
-      // however, 1.7 support will soon be abandoned in favor of Scala 2.11/JVM 8
+      // will need to use both JDK 1.7 and Scala 2.12/JDK 1.8 to cross-build for Scala 2.12
       val _ = initialize.value // run the previous initialization
       val required = "1.7"
       val current  = sys.props("java.specification.version")
@@ -33,11 +33,11 @@ trait BuildSettings {
     javacOptions := Seq("-XDignore.symbol.file"),
     sources in (Compile, doc) := Seq.empty,
     publishTo := {
-      val maven = "https://oss.sonatype.org"
+      val sonatype = "https://oss.sonatype.org"
       if (isSnapshot.value)
-        Some("Sonatype Snapshots" at s"$maven/content/repositories/snapshots")
+        Some("Sonatype Snapshots" at s"$sonatype/content/repositories/snapshots")
       else
-        Some("Sonatype Staging" at s"$maven/service/local/staging/deploy/maven2")
+        Some("Sonatype Staging" at s"$sonatype/service/local/staging/deploy/maven2")
     },
     // use local maven repository
     resolvers += Resolver.mavenLocal,
@@ -66,6 +66,7 @@ trait BuildSettings {
       }).transform(node).head
     }
   ) ++ {
+    // add Sonatype credentials only when the file exists
     val path = Path.userHome / ".ivy2" / ".credentials"
     if (path.exists())
       credentials += Credentials(path)
@@ -106,7 +107,7 @@ trait BuildSettings {
   val slf4j = dep("org.slf4j" % "slf4j-api" % "1.7.21")
 
   val loggingProvided = slf4j ++ dep(
-    /** used by LoggingUtils; set as "provided", since Mango can be used either logback- or log4j-based deployment environments */
+    // used by LoggingUtils; set as "provided", since Mango can be used in either logback- or log4j-based deployment environments
     "log4j" % "log4j" % "1.2.17" % "provided",
     "org.slf4j" % "slf4j-log4j12" % "1.7.5" % "provided",
     "ch.qos.logback" % "logback-classic" % "1.1.7" % "provided"
@@ -131,6 +132,8 @@ object Build extends Build with BuildSettings {
     mangoHBase, mangoCouchbase, mangoElasticSearch
   )
 
+  // this is where package relocation happens, but is not part of the parent project
+  // the resulting shaded jar will be picked up and used as a artifact of mango-shaded project
   lazy val mangoShadedLib = Project(
     id = "mango-shaded-lib",
     base = file("mango-shaded-lib"),
@@ -204,5 +207,3 @@ object Build extends Build with BuildSettings {
   ).dependsOn(mangoCore % "compile->compile;test->test")
 
 }
-
-
