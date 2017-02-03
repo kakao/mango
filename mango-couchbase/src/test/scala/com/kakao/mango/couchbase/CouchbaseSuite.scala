@@ -8,6 +8,7 @@ import com.kakao.mango.MangoFunSuite
 import com.kakao.mango.json.toJson
 import com.kakao.mango.logging.LogLevelOverrider
 import org.couchbase.mock.{BucketConfiguration, CouchbaseMock}
+import scala.concurrent.duration._
 
 case class SampleDoc ( id : String )
 
@@ -32,7 +33,10 @@ class CouchbaseSuite extends MangoFunSuite {
 
     logger.info(s"Mock Couchbase bucket is running at port $port")
 
-    val env = DefaultCouchbaseEnvironment.builder().bootstrapCarrierDirectPort(port).build()
+    val env = DefaultCouchbaseEnvironment.builder()
+      .bootstrapCarrierDirectPort(port)
+      .connectTimeout(30.seconds.toMillis)
+      .build()
     couchbase = Couchbase(env, "localhost")
     bucket = couchbase.bucket("default")
 
