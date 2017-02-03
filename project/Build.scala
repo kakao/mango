@@ -21,7 +21,7 @@ trait BuildSettings {
       val _ = initialize.value // run the previous initialization
       val required = "1.7"
       val current  = sys.props("java.specification.version")
-      assert(current == required, s"JDK $required is required for compatibility; current version = $current")
+      assert(current == required || sys.env.contains("TRAVIS"), s"JDK $required is required for compatibility; current version = $current")
     },
 
     // basic project information
