@@ -1,6 +1,8 @@
 Mango
 =====
 
+[![Join the chat at https://gitter.im/kakao/mango](https://badges.gitter.im/kakao/mango.svg)](https://gitter.im/kakao/mango?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Mango is a core utility library written Scala for handing JSON formats, concurrency, logging, hashing, cryptography, reflections, etc., as well as making client connections to various endpoints, including HTTP, Telnet, OpenTSDB, Couchbase, ElasticSearch, HBase and ZooKeeper. 
  
 Mango has been extensively used in Kakao for years, and is open-sourced under Apache License. Its name follows [Googlers' wisdom](https://github.com/google/guava) that core libraries should be named after tropical fruits. 
@@ -124,7 +126,3 @@ Copyright 2017 Kakao Corp. <http://www.kakaocorp.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
-## Gitter
-
-[![Join the chat at https://gitter.im/kakao/mango](https://badges.gitter.im/kakao/mango.svg)](https://gitter.im/kakao/mango?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
