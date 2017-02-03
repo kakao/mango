@@ -25,16 +25,16 @@ class RichFutureSuite extends MangoFunSuite {
   }
 
   test("Should block on the Future until it finishes") {
-    val duration = 100.milliseconds
+    val duration = 1000.milliseconds
     val start = System.currentTimeMillis()
     futureOfThreadSleep(duration).await(duration * 2)
     val elapsedTime = System.currentTimeMillis() - start
-    (elapsedTime - 100) >= 0 shouldBe true
+    (elapsedTime - duration.toMillis) should be >= -(duration.toMillis / 10)
   }
 
   test("Awaiting on a Future shorter than it finishes should throw a TimeoutException") {
 
-    val duration = 100.milliseconds
+    val duration = 1000.milliseconds
 
     assertThrows[TimeoutException] {
       val start = System.currentTimeMillis()
