@@ -1,7 +1,7 @@
 Mango
 =====
 
-[![Join the chat at https://gitter.im/kakao/mango](https://badges.gitter.im/kakao/mango.svg)](https://gitter.im/kakao/mango?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/kakao/mango.svg?branch=master)](https://travis-ci.org/kakao/mango) [![Join the chat at https://gitter.im/kakao/mango](https://badges.gitter.im/kakao/mango.svg)](https://gitter.im/kakao/mango?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Mango is a core utility library written Scala for handing JSON formats, concurrency, logging, hashing, cryptography, reflections, etc., as well as making client connections to various endpoints, including HTTP, Telnet, OpenTSDB, Couchbase, ElasticSearch, HBase and ZooKeeper. 
  
