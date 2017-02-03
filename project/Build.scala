@@ -15,14 +15,16 @@ trait BuildSettings {
   val jacksonV = "2.7.2"
 
   val buildSettings: Seq[Def.Setting[_]] = Defaults.coreDefaultSettings ++ Seq(
+    // require JDK 1.7 for development
+    // will need to use both JDK 1.7 and Scala 2.12/JDK 1.8 to cross-build for Scala 2.12
     initialize := {
-      // require JDK 1.7 for development
-      // will need to use both JDK 1.7 and Scala 2.12/JDK 1.8 to cross-build for Scala 2.12
       val _ = initialize.value // run the previous initialization
       val required = "1.7"
       val current  = sys.props("java.specification.version")
       assert(current == required, s"JDK $required is required for compatibility; current version = $current")
     },
+
+    // basic project information
     organization := "com.kakao.mango",
     isSnapshot := version.value.endsWith("-SNAPSHOT"),
     scalaVersion := scalaV,
@@ -31,19 +33,15 @@ trait BuildSettings {
     addCompilerPlugin("org.scalamacros" % "paradise" % paradiseV cross CrossVersion.full),
     scalacOptions := Seq("-feature", "-unchecked", "-encoding", "utf8"),
     javacOptions := Seq("-XDignore.symbol.file"),
+
+    // skip making ScalaDoc as it fails to handle shaded dependencies correctly
     sources in (Compile, doc) := Seq.empty,
-    publishTo := {
-      val sonatype = "https://oss.sonatype.org"
-      if (isSnapshot.value)
-        Some("Sonatype Snapshots" at s"$sonatype/content/repositories/snapshots")
-      else
-        Some("Sonatype Staging" at s"$sonatype/service/local/staging/deploy/maven2")
-    },
-    // use local maven repository
-    resolvers += Resolver.mavenLocal,
+
     // update README.md automatically on release
     releaseProcess := customReleaseProcess,
+    releasePublishArtifactsAction := TaskKey[Unit]("publish-signed", "Publishing all artifacts, but SIGNED using PGP.", KeyRanks.APlusTask),
     releaseCrossBuild := true,
+
     // test dependencies
     libraryDependencies ++= Seq(
       "org.mockito" % "mockito-core" % "1.9.5",
@@ -51,6 +49,22 @@ trait BuildSettings {
       "org.scalatest" %% "scalatest" % "3.0.1",
       "org.slf4j" % "slf4j-log4j12" % "1.7.5"
     ).map(_ % "test"),
+
+    // publish configurations
+    homepage := Some(url("https://github.com/kakao/mango")),
+    licenses := Seq("The Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+    description := "Core utility library &amp; data connectors designed for simpler usage in Scala",
+    scmInfo := Some { val git = "https://github.com/kakao/mango.git"; ScmInfo(url(git), s"scm:git:$git", Some(s"scm:git:$git")) },
+    developers := List(Developer("jongwook", "Jong Wook Kim", "jongwook@nyu.edu", url("https://github.com/jongwook"))),
+    publishTo := {
+      val sonatype = "https://oss.sonatype.org"
+      if (isSnapshot.value)
+        Some("Sonatype Snapshots" at s"$sonatype/content/repositories/snapshots")
+      else
+        Some("Sonatype Staging" at s"$sonatype/service/local/staging/deploy/maven2")
+    },
+    publishMavenStyle := true,
+    pomIncludeRepository := { _ => false },
     pomPostProcess := { (node: XmlNode) =>
       // remove provided/test dependencies from the resulting POM, to speed up the resolving process
       new RuleTransformer(new RewriteRule {
