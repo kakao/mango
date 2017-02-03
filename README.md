@@ -33,8 +33,8 @@ For example, you can pull the entire Mango library or import only the core and l
 
 <!-- DO NOT EDIT: The section below will be automatically updated by build script -->
 ```scala
-libraryDependencies += "com.kakao.mango" %% "mango" % "0.5.0-SNAPSHOT"
-libraryDependencies += "com.kakao.mango" %% "mango-core" % "0.5.0-SNAPSHOT"
+libraryDependencies += "com.kakao.mango" %% "mango" % "0.5.0"
+libraryDependencies += "com.kakao.mango" %% "mango-core" % "0.5.0"
 ```
 <!-- DO NOT EDIT: The section above will be automatically updated by build script -->
 
