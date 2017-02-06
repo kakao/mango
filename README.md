@@ -5,9 +5,18 @@ Mango
 [![GitHub version](https://badge.fury.io/gh/kakao%2Fmango.svg)](https://badge.fury.io/gh/kakao%2Fmango)
 [![Join the chat at https://gitter.im/kakao/mango](https://badges.gitter.im/kakao/mango.svg)](https://gitter.im/kakao/mango?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Mango is a core utility library written Scala for handing JSON formats, concurrency, logging, hashing, cryptography, reflections, etc., as well as making client connections to various endpoints, including HTTP, Telnet, OpenTSDB, Couchbase, ElasticSearch, HBase and ZooKeeper. 
+Mango is a core utility library written Scala for handing JSON formats, concurrency, logging, hashing, cryptography, reflections, etc., as well as making client connections to various endpoints, including HTTP, Telnet, OpenTSDB, Couchbase, ElasticSearch, HBase, and ZooKeeper. 
  
 Mango has been extensively used in Kakao for years, and is open-sourced under Apache License. Its name follows [Googlers' wisdom](https://github.com/google/guava) that core libraries should be named after tropical fruits. 
+
+Mango is available on [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.kakao.mango%22), and you can pull the entire Mango library or import only the core and logging features, as follows:
+
+<!-- DO NOT EDIT: The section below will be automatically updated by build script -->
+```scala
+libraryDependencies += "com.kakao.mango" %% "mango" % "0.5.0"
+libraryDependencies += "com.kakao.mango" %% "mango-core" % "0.5.0"
+```
+<!-- DO NOT EDIT: The section above will be automatically updated by build script -->
 
 Mango is composed of several subprojects, and its dependency structure is shown below, where the upper one is dependent on the lower.
 
@@ -31,16 +40,7 @@ Mango is composed of several subprojects, and its dependency structure is shown 
                          └───────────┘
 ``` 
 
-For example, you can pull the entire Mango library or import only the core and logging features, as follows:
-
-<!-- DO NOT EDIT: The section below will be automatically updated by build script -->
-```scala
-libraryDependencies += "com.kakao.mango" %% "mango" % "0.5.0"
-libraryDependencies += "com.kakao.mango" %% "mango-core" % "0.5.0"
-```
-<!-- DO NOT EDIT: The section above will be automatically updated by build script -->
-
-Some examples of using Mango are shown below; more comprehensive documentations are in the wiki.
+Some examples of using Mango are shown below; more comprehensive documentations are in the [wiki](https://github.com/kakao/mango/wiki).
 
 ## [JSON Conversions](https://github.com/kakao/mango/wiki/JSON)
 
