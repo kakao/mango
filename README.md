@@ -121,7 +121,7 @@ When publishing snapshots, the `+` is prepended in the `publish` command to make
 
 ## License
 
-This software is licensed under the [Apache 2 license](LICENSE.txt), quoted below.
+This software is licensed under the [Apache 2 license](LICENSE), quoted below.
 
 Copyright 2017 Kakao Corp. <http://www.kakaocorp.com>
 
